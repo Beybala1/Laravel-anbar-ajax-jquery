@@ -17,10 +17,6 @@ use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\EmployeeDocController;
 use App\Http\Controllers\Auth\VerificationController;
 
-/*Route::get('/brand/{id}',[BrandController::class, 'destroy']);
-Route::resource('brand', BrandController::class);
-Route::resource('product', ProductController::class);*/
-
 Route::get('/', [BrandController::class, 'index'])->name('home')->middleware(['auth','verified']);
 Route::post('brand_insert', [BrandController::class, 'store']);
 Route::post('brand_update', [BrandController::class, 'edit']);
