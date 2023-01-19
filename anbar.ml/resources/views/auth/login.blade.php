@@ -48,6 +48,9 @@
                             </path>
                         </svg>
                         </a>
+
+                        <p class="">Email:admin@gmail.com</p>
+                        <p>Parol:admin!</p>
                         @if (session('fail'))
                           <div class="alert alert-danger d-flex align-items-center" role="alert">
                             <div>
