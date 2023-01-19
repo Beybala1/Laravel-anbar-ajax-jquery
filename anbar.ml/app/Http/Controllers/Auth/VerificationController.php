@@ -5,9 +5,7 @@ namespace App\Http\Controllers\Auth;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
-use Illuminate\Bus\Queueable;
 use Illuminate\Foundation\Auth\VerifiesEmails;
-
 class VerificationController extends Controller implements ShouldQueue
 {
     /*
@@ -20,7 +18,6 @@ class VerificationController extends Controller implements ShouldQueue
     | be re-sent if the user didn't receive the original email message.
     |
     */
-
     use VerifiesEmails;
 
     /**

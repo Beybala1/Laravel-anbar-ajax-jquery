@@ -73,33 +73,28 @@
                             <div class="mb-3 form-password-toggle">
                                 <label class="form-label" for="password">Parol</label>
                                 <div class="input-group input-group-merge">
-                                    <input type="password" id="password" class="form-control @error('password') is-invalid @enderror" name="password"
+                                    <input type="password" id="password" 
+                                        class="form-control @error('password') is-invalid @enderror" name="password"
                                         placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
                                         aria-describedby="password" />
                                     <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
-                                </div>
-                                @error('password')
+                                    @error('password')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
-                                @enderror
+                                    @enderror
+                                </div>
                             </div>
 
                             <div class="mb-3 form-password-toggle">
                                 <label class="form-label" for="password">Təkrar parol</label>
                                 <div class="input-group input-group-merge">
-                                    <input type="password" id="password_confirmation" class="form-control"
+                                    <input type="password" id="password_confirmation" class="form-control @error('password') is-invalid @enderror"
                                         name="password_confirmation"
                                         placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
                                         aria-describedby="password" />
                                     <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
-                                    @error('password_confirmation')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
                                 </div>
-                                {{--<span class="text-danger error-text password_confirmation_error error_message"></span>--}}
                             </div>
                             <button class="btn btn-primary d-grid w-100">Qeydiyyatdan keç</button>
                         </form>

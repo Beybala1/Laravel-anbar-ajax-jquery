@@ -49,8 +49,8 @@
                         </svg>
                         </a>
 
-                        <p class="">Email:admin@gmail.com</p>
-                        <p>Parol:admin!</p>
+                        <p class="my-2">Email: admin@gmail.com</p>
+                        <p>Parol: admin!</p>
                         @if (session('fail'))
                           <div class="alert alert-danger d-flex align-items-center" role="alert">
                             <div>
@@ -99,7 +99,7 @@
                                 </div>
                             </div>
                             <div class="mb-3">
-                                <button class="btn btn-primary d-grid w-100" type="submit">Daxil et</button>
+                                <button class="btn btn-primary d-grid w-100" type="submit">Daxil ol</button>
                             </div>
                         </form>
 
