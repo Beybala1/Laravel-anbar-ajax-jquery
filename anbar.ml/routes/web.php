@@ -3,7 +3,7 @@ use App\Http\Controllers\Admin;
 use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-    use App\Http\Controllers\XercController;
+use App\Http\Controllers\XercController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ClientController;
