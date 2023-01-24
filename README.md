@@ -1,3 +1,5 @@
+Laravel admin-dashboard
+
 1.Run git clone <my-cool-project>
     
 2.Run composer install
