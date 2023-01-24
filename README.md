@@ -1,4 +1,4 @@
-Laravel admin-dashboard
+<h2>Laravel admin-dashboard</h2>
 
 1.Run git clone <my-cool-project>
     
