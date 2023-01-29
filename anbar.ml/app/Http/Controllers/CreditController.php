@@ -13,6 +13,11 @@ use Illuminate\Support\Facades\Validator;
 
 class CreditController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
         if(request()->ajax()) {
@@ -109,9 +114,24 @@ class CreditController extends Controller
         ]);
     }
 
-    public function store(Request $request)
-    {  
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
+    }
 
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
         $CreditId = $request->id;
 
         if($CreditId){
@@ -192,18 +212,53 @@ class CreditController extends Controller
             }
         }
     }
-     
-    public function edit(Request $request)
-    {   
-        $where = array('id' => $request->id);
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+       //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $where = array('id' => $id);
         $Credit  = Credit::where($where)->first();
      
         return Response()->json($Credit);
     }
-     
-    public function destroy(Request $request)
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
     {
-        $query = Credit::find($request->id)->delete();
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        $query = Credit::find($id)->delete();
 
         if($query){
             return response()->json(['code'=>1, 'msg'=>'Məlumat uğurla silindi']);
@@ -280,8 +335,15 @@ class CreditController extends Controller
         return back()->with('message_fail','Daxil etdiyiniz məbləğ aylıq ödəniş məbləğindən azdır');
     }
 
-    public function show($id){
+    public function cancel(Request $request){
+        $credit = Credit::where('credits.user_id','=',auth()->id())->find($request->id);
+        $credit->credit_cancel = 1;
+        $credit->save();
+        return response()->json(['code'=>1, 'msg'=>'Qaliq borc ləğv edildi']);
+    }
 
+    public function pay_check($id)
+    {
         if(request()->ajax()) {
             return datatables()->of(CreditView::join('credits','credits.id','=','credit_views.credit_id')
             ->join('products','products.id','=','credits.credit_product_id')
@@ -299,12 +361,5 @@ class CreditController extends Controller
             'orders_data'=>Order::join('products','products.id','=','orders.product_id')->where('orders.user_id','=',auth()->id())->get(),
             'product_brand'=>Product::where('products.user_id','=',auth()->id())->get(),
         ]);
-    }
-    
-    public function cancel(Request $request){
-        $credit = Credit::where('credits.user_id','=',auth()->id())->find($request->id);
-        $credit->credit_cancel = 1;
-        $credit->save();
-        return response()->json(['code'=>1, 'msg'=>'Qaliq borc ləğv edildi']);
     }
 }

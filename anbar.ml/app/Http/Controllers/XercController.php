@@ -32,8 +32,17 @@ class XercController extends Controller
             'orders_data'=>Order::join('products','products.id','=','orders.product_id')->where('products.user_id','=',auth()->id())->get(),
         ]);
     }
-     
-     
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -41,8 +50,7 @@ class XercController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {  
-
+    {
         $XercId = $request->id;
 
         if($XercId){
@@ -95,42 +103,54 @@ class XercController extends Controller
                     return response()->json(['status'=>1, 'msg'=>'Xərc uğurla əlavə edildi']);
                 }
             }
-
-            /*$Xerc = new Xerc;
-            date_default_timezone_set('Asia/Baku');
-            $Xerc->xerc_product = $request->xerc_product;
-            $Xerc->count = $request->count;
-            $Xerc->save();
-         
-            return Response()->json($Xerc);*/
         }
     }
-     
-     
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Xerc  $Xerc
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request)
-    {   
-        $where = array('id' => $request->id);
+    public function edit($id)
+    {
+        $where = array('id' => $id);
         $Xerc  = Xerc::where($where)->first();
      
         return Response()->json($Xerc);
     }
-     
-     
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        //
+    }
+
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Xerc  $Xerc
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function destroy($id)
     {
-        $id = $request->id;
         $query = Xerc::find($id)->delete();
 
         if($query){

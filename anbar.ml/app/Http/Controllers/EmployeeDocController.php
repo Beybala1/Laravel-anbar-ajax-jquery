@@ -13,35 +13,34 @@ use Illuminate\Support\Facades\Validator;
 
 class EmployeeDocController extends Controller
 {
-    public function index($id)
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
     {
-        if(request()->ajax()) {
-            return datatables()->of(EmployeeDoc::join('employees','employees.id','=','employee_docs.employee_id')
-            ->select('*','employee_docs.id','employee_docs.created_at as date')
-            ->where('employee_docs.user_id','=',auth()->id())
-            ->where('employee_docs.employee_id','=',$id)->get())
-            ->addColumn('action', 'book-action')
-            ->addColumn('image', function($row){
-                $image = url($row->scan);
-                return $image;
-            })
-            ->addColumn('created_at', function($row){
-                return date('d-m-Y H:i:s', strtotime($row->created_at) );
-            })
-            ->addIndexColumn()
-            ->make(true);
-        }
-        return view('employee_document',[
-            'product_brand'=>Product::where('products.user_id','=',auth()->id())->get(),
-            'orders_data'=>Order::join('products','products.id','=','orders.product_id')->where('products.user_id','=',auth()->id())->get(),
-            'employees_id'=>Employee::find($id),
-        ]);
+        //
     }
 
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function store(Request $request)
-    {  
-
-
+    {
         $EmployeeDocId = $request->id;
 
         if($EmployeeDocId){
@@ -130,19 +129,73 @@ class EmployeeDocController extends Controller
             }
         }
     }
-     
-    public function edit(Request $request)
-    {   
-        $where = array('id' => $request->id);
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        if(request()->ajax()) {
+            return datatables()->of(EmployeeDoc::join('employees','employees.id','=','employee_docs.employee_id')
+            ->select('*','employee_docs.id','employee_docs.created_at as date')
+            ->where('employee_docs.user_id','=',auth()->id())
+            ->where('employee_docs.employee_id','=',$id)->get())
+            ->addColumn('action', 'book-action')
+            ->addColumn('image', function($row){
+                $image = url($row->scan);
+                return $image;
+            })
+            ->addColumn('created_at', function($row){
+                return date('d-m-Y H:i:s', strtotime($row->created_at) );
+            })
+            ->addIndexColumn()
+            ->make(true);
+        }
+        return view('employee_document',[
+            'product_brand'=>Product::where('products.user_id','=',auth()->id())->get(),
+            'orders_data'=>Order::join('products','products.id','=','orders.product_id')->where('products.user_id','=',auth()->id())->get(),
+            'employees_id'=>Employee::find($id),
+        ]);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $where = array('id' => $id);
         $EmployeeDoc  = EmployeeDoc::where($where)->first();
      
         return Response()->json($EmployeeDoc);
-
     }
-     
-    public function destroy(Request $request)
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
     {
-        $query = EmployeeDoc::find($request->id);
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        $query = EmployeeDoc::find($id);
         $path = '/home/filmbaxt/anbar.ml/'.$query->scan.'';
 
         File::delete($path);

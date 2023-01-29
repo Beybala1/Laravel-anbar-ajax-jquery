@@ -47,26 +47,7 @@ class ProductController extends Controller
                 }
             })
             ->addColumn('created_at', function($row){
-                /* $profit = 0;
-                $total_profit = Product::where('products.user_id','=',auth()->id())->get();
-                foreach ($total_profit as $p) {
-                    $profit = (($p->sell - $p->buy)*$p->count)+$profit;
-                }
-
-                $orders_data=Order::join('products','products.id','=','orders.product_id')->where('products.user_id','=',auth()->id())->get();
-                $profit_new = 0;
-                foreach ($orders_data as $profit_now) {
-                    if($profit_now->confirm==1){
-                        $profit_new = (($profit_now->sell - $profit_now->buy)*$profit_now->order_count)+$profit_new;
-                    }
-                } */
-                                   
-                return date('d-m-Y H:i:s', strtotime($row->created_at) ).'
-                <input type="hidden" id="brands" name="brands" value="'.Brand::where('user_id','=',auth()->id())->count().'">
-                <input type="hidden" id="client" value="'.Client::where('user_id','=',auth()->id())->count().'">
-                <input type="hidden" id="products" name="products" value="'.Product::where('user_id','=',auth()->id())->count().'">
-                <input type="hidden" id="orders" value="'.Order::where('user_id','=',auth()->id())->count().'">
-                ';
+                return date('d-m-Y H:i:s', strtotime($row->created_at) );
             })
             ->addIndexColumn()
             ->rawColumns(['created_at','action'])
@@ -80,14 +61,23 @@ class ProductController extends Controller
     }
 
     /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {  
-
+    {
         $ProductId = $request->id;
 
         if($ProductId){
@@ -176,30 +166,53 @@ class ProductController extends Controller
             }
         }
     }
-     
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Product  $Product
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request)
-    {   
-        $where = array('id' => $request->id);
-        $Brand  = Product::where($where)->first();
+    public function edit($id)
+    {
+        $where = array('id' => $id);
+        $product  = Product::where($where)->first();
      
-        return Response()->json($Brand);
+        return Response()->json($product);
     }
-     
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        //
+    }
+
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Product  $Product
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function destroy($id)
     {
-        $query = Product::find($request->id);
+        $query = Product::find($id);
         $path = '/home/filmbaxt/anbar.ml/'.$query->logo.'';
         File::delete($path);
         $query->delete();
